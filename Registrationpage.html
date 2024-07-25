@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>
+User Registration
+</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin ="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+body{
+background-image: url("https://img.freepik.com/free-photo/top-view-avocado-toast-with-radish-seeds-plate-with-copy-space_23-2148749089.jpg?t=st=1711177165~exp=1711180765~hmac=44ed8bf659ec7c144105ff8f976c15232935c4c1e06a4cffdfc1c283e468fa76&w=1060");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+function save(){
+var username=$("#username").val();
+var name=$("#name").val();
+var phone=$("#phone").val();
+var password=$("#password").val();
+
+$.ajax({
+url:"register",
+type:"POST",
+data:{un:username,n:name,ph:phone,pwd:password},
+datatype:"json",
+success:function(response){
+switch(parseInt(response)){
+case 0:
+alert("unable to save.Try Again");
+break;
+case 1:
+alert("Registration successful");
+window.location = "website.html";
+break;
+case 520:
+alert("phoneno already registered please login");
+break;
+case -1:
+alert("something went wrong try after sometime");
+break;
+}
+}
+}).fail (function (){
+Alert ("request failed");
+});
+}
+</script>
+
+<div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-3">
+<div class="shadow p-3 mb-5" style="padding: 5px;background-color:lightslategray;">
+<div class="card">
+<div class="card-body">
+<h4><b> User Registration</b></h4>
+<br/><br/>
+User name:<br/>
+<input type="text" id="username" class="form-control"/>
+<br/><br/>
+Name:<br/>
+<input type="text" id="name" class="form-control"/>
+<br/><br/>
+Phone number :< br/>
+<input type="text" id="phone" class="form-control"/>
+<br/><br/>
+Password :< br/>
+<input type="password" placeholder="password" id="password" class="form-control"/>
+<br/><br/>
+Confirm password :< br/>
+<input type="password" placeholder="Confirm Password" id="confirmpassword" class="form-control"/>
+<br/><br/>
+<button type="button" class="btn btn-secondary" onclick="save()">Sign Up</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="login.html"><button type="button"class="btn btn-secondary" onclick="save()">Login</button></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

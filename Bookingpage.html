@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant Table Seat Booking</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+body {
+  background-image: url('https://t3.ftcdn.net/jpg/02/05/87/60/240_F_205876015_hYYs7ugqoU8QAobSS3TbnGQ92qyS5gEc.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #020f0f;
+}
+h1 {
+  text-align: center;
+  color: white;
+}
+.table-images {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+.table-images img {
+  width: 180px;
+ height: auto;
+  border: 5px solid transparent;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.table-images img.booked {
+  opacity: 0.9;
+}
+.table-images img:hover {
+  border-color: #010a0f;
+}
+.card {
+  margin: 0 auto; 
+  width: 50%; 
+  background-color: rgba(5, 5, 5, 0.642); 
+  padding: 20px; 
+  border-radius: 10px;  
+}
+form {
+  text-align: center;
+}
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #013503;
+  color: #ece4e4;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 16px;
+}
+label {
+ color: rgb(11, 11, 11);
+}
+input[type="text"],
+input[type="name"] {
+  color: black;
+  background-color: transparent;
+  border: 1px solid white;
+    width: calc(100% - 20px); 
+  padding: 10px; 
+  margin-bottom: 10px; 
+}
+input[type="submit"] {
+  color: white;
+}
+</style>
+</head>
+<body>
+    <script type = "text/javascript">
+            function booking(){
+                var email = $("#Email").val();
+                var name = $("#Name").val();
+                var table = $("#selected-table").val();
+                $.ajax({
+                    url : 'booking',
+                    type : "POST",
+                    data : {e : email, n : name, t : table},
+                    datatype : "json",
+                    success : function(response){
+                        alert(response);
+                        switch(parseInt(response)){
+                             case 0:
+alert("unable to save.Try Again");
+                                 break;
+                             case 1:
+                                 alert("Reserved successfully");
+                                 break;
+                            case 520:
+                                 alert("email already registered please login");
+                                 break;
+                             case -1:
+                                 alert("something went wrong try after sometime");
+                                 break;
+                         }
+                     }
+                 }).fail(function(){
+                     alert("request failed");
+                 });
+             }
+        </script>
+<div class="container">
+<br><br>
+<h1>Reserve Your Table</h1>
+<br><br>
+<div class="table-images">
+<img src="https://img.freepik.com/premium-photo/round-table-restaurant_236836-16778.jpg?size=626&ext=jpg&ga=GA1.1.1991672525.1711247734&semt=ais" alt="Table 1" data-table="1" onclick="selectTable('Table 1', 1)">
+<img src="https://img.freepik.com/premium-photo/dining-table-set-modern-style-indoor-photo-studio-professional-photography_925376-26069.jpg?w=1060" alt="Table 2" data-table="2" onclick="selectTable('Table 2', 2)">
+<img src="https://i.pinimg.com/originals/43/01/d8/4301d8e752c0d0ff5731e2393be01bb4.png" alt="Table 3" data-table="3" onclick="selectTable('Table 3', 3)">
+<img src="https://img.freepik.com/premium-photo/table-isolated-white-background-3d-illustration-cg-render_375001-16182.jpg?w=740" alt="Table 4" data-table="4" onclick="selectTable('Table 4', 4)">
+<img src="https://i.pinimg.com/originals/43/01/d8/4301d8e752c0d0ff5731e2393be01bb4.png" alt="Table 5" data-table="5" onclick="selectTable('Table 5', 5)">
+<img src="https://i.pinimg.com/originals/27/77/41/2777413dee858bf455c215299c83b0ad.jpg" alt="Table 6" data-table="6" onclick="selectTable('Table 6', 6)">
+</div>
+<div class="card">
+    <div class="col-md-4"></div>
+    <div class="shadow p-3 mb-5" style="padding: 10px;background-color:rgb(26, 24, 24);">
+            <div class="col-md-3">
+                <div class="shadow p-3 mb-5" style="padding: 10px;background-color:rgb(227, 200, 200);">
+                        <div class="card-body">
+                         <label for="Email"><b>Email:</b></label><br>
+                         <input type="text" id="Email" name="Email" required><br>
+                         <label for="Name"><b>Name:</b></label><br>
+                         <input type="text" id="Name" name="Name" required><br>
+                         <label for="table"><b>Selected Table :</b></label><br>
+                         <input type="text" id="selected-table" name="selected-table" readonly><br><br>
+                         <input type="submit" class="btn btn-secondary" value="Book Now" onclick="booking()"/>
+                        </div>
+                </div>
+                   </div>
+                </div>
+            </div>
+            </div>
